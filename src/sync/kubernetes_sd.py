@@ -4,7 +4,9 @@ from . import core
 import sys
 import os
 
-allow_service_types = os.environ.get("ALLOW_SERVICE_TYPES", ["ClusterIP", "NodePort", "LoadBalancer"])
+allow_service_types = os.environ.get(
+    "ALLOW_SERVICE_TYPES", [
+        "ClusterIP", "NodePort", "LoadBalancer"])
 
 try:
     if os.environ.get("DEPLOYMENT_ENV") == "local":
@@ -36,7 +38,8 @@ def kubernetes_service_discovery() -> dict:
             svc_cluster_ips: list = i.spec.cluster_i_ps
             if core.allow_sync(
                     service_namespace=i.metadata.namespace,
-                    service_annotations=svc_annotations) and svc_type in allow_service_types and all(svc_cluster_ips):
+                    service_annotations=svc_annotations) and svc_type in allow_service_types and (
+                    "None" not in svc_cluster_ips):
                 if svc_name not in services:
                     services[svc_name] = {
                         "type": svc_type,

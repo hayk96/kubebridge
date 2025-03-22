@@ -1,5 +1,5 @@
 from .kubernetes_sd import kubernetes_service_discovery
-from src.utils.redis_client import ping_redis, publisher
+from src.utils.redis_client import RedisClient
 from src.utils.log import logger
 import time
 import sys
@@ -7,10 +7,11 @@ import os
 
 
 def service_sync():
-    if ping_redis():
+    redis = RedisClient()
+    if redis.ping_redis():
         while True:
             kubernetes_services = kubernetes_service_discovery()
-            publisher(str(kubernetes_services))
+            redis.publisher(str(kubernetes_services))
             time.sleep(int(os.environ.get("K8S_SERVICE_SYNC_INTERVAL")) or 3)
     else:
         logger.error("Failed to connect Redis. Exiting...")

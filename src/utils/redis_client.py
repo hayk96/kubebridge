@@ -4,80 +4,81 @@ import redis
 import time
 import os
 
-redis_host = os.environ.get("REDIS_HOST") or "127.0.0.1"
-redis_port = os.environ.get("REDIS_PORT") or 6379
-redis_db = os.environ.get("REDIS_DB") or 0
-redis_client = redis.Redis(
-    host=redis_host,
-    port=redis_port,
-    db=redis_db,
-    decode_responses=True)
-redis_pubsub_channel = "kubebridge:kubernetes_services"
-m = {}
-read_messages_counter = -1
 
+class RedisClient:
+    msg: dict = {}
+    read_msg_counter: int = -1
 
-def ping_redis(
-        msg="Redis is up. Ping has been succeeded to",
-        ext_msg=None) -> bool:
-    """This function pings to Redis server"""
-    global redis_client
-    try:
-        if redis_client.ping():
-            logger.info(
-                f"{msg} {redis_host}:{redis_port}", extra=ext_msg)
-            return True
-    except BaseException as err:
-        logger.error(err)
-        return False
+    def __init__(self):
+        self.redis_host = os.environ.get("REDIS_HOST", "127.0.0.1")
+        self.redis_port = os.environ.get("REDIS_PORT", 6379)
+        self.redis_db = os.environ.get("REDIS_DB", 0)
+        self.redis_username = os.environ.get("REDIS_USERNAME")
+        self.redis_password = os.environ.get("REDIS_PASSWORD")
+        self.redis_pubsub_channel = "kubebridge:kubernetes_services"
 
+        self.client = redis.Redis(
+            host=self.redis_host,
+            port=int(self.redis_port),
+            db=int(self.redis_db),
+            username=self.redis_username,
+            password=self.redis_password,
+            decode_responses=True)
 
-def publisher(data: str):
-    """
-    Publishes data to Redis
-    """
-    global redis_client, redis_pubsub_channel
-    try:
-        redis_client.publish(redis_pubsub_channel, data)
-    except BaseException as e:
-        logger.error(f"Failed to publish data to Redis. {e}",
-                     extra={"channel": redis_pubsub_channel})
-    else:
-        logger.debug(f"Data published to Redis successfully: {data}",
-                     extra={"channel": redis_pubsub_channel})
-
-
-def subscriber(func):
-    """
-    Subscribe data from Redis
-    """
-    global m
-    global read_messages_counter
-    global redis_client
-    pubsub = redis_client.pubsub()
-    pubsub.subscribe(redis_pubsub_channel)
-    while True:
+    def ping_redis(self,
+                   msg="Redis is up. Ping has been succeeded to",
+                   ext_msg=None) -> bool:
+        """This function pings to Redis server"""
         try:
-            message = pubsub.get_message(
-                ignore_subscribe_messages=True, timeout=int(
-                    os.environ.get("K8S_SERVICE_SYNC_INTERVAL")) + 1)
-            read_messages_counter += 1
-            # Wait as the messages can be readable after subscription
-            if read_messages_counter == 0:
-                time.sleep(
-                    int(os.environ.get("K8S_SERVICE_SYNC_INTERVAL")) + 1)
-                continue
-            if message:
-                m = literal_eval(message.get("data"))
-            else:
-                raise Exception("No messages in Redis. Waiting...")
+            if self.client.ping():
+                logger.info(
+                    f"{msg} {self.redis_host}:{self.redis_port}", extra=ext_msg)
+                return True
+        except BaseException as err:
+            logger.error(err)
+            return False
+
+    def publisher(self, data: str):
+        """
+        Publish data to Redis
+        """
+        try:
+            self.client.publish(self.redis_pubsub_channel, data)
         except BaseException as e:
-            logger.error(
-                f"Failed to subscribe data from Redis. {e}. Reconnecting...", extra={
-                    "channel": redis_pubsub_channel})
-            time.sleep(5)
-            continue
+            logger.error(f"Failed to publish data to Redis. {e}",
+                         extra={"channel": self.redis_pubsub_channel})
         else:
-            func(m)
-            logger.debug("Received data from Redis successfully",
-                         extra={"channel": redis_pubsub_channel, "data": m})
+            logger.debug(f"Data published to Redis successfully: {data}",
+                         extra={"channel": self.redis_pubsub_channel})
+
+    def subscriber(self, func):
+        """
+        Subscribe data from Redis
+        """
+        pubsub = self.client.pubsub()
+        pubsub.subscribe(self.redis_pubsub_channel)
+        while True:
+            try:
+                message = pubsub.get_message(
+                    ignore_subscribe_messages=True, timeout=int(
+                        os.environ.get("K8S_SERVICE_SYNC_INTERVAL")) + 1)
+                RedisClient.read_msg_counter += 1
+                # Wait as the messages can be readable after subscription
+                if RedisClient.read_msg_counter == 0:
+                    time.sleep(
+                        int(os.environ.get("K8S_SERVICE_SYNC_INTERVAL")) + 1)
+                    continue
+                if message:
+                    RedisClient.msg = literal_eval(message.get("data"))
+                else:
+                    raise Exception("No messages in Redis. Waiting...")
+            except BaseException as e:
+                logger.error(
+                    f"Failed to subscribe data from Redis. {e}. Reconnecting...", extra={
+                        "channel": self.redis_pubsub_channel})
+                time.sleep(5)
+                continue
+            else:
+                func(RedisClient.msg)
+                logger.debug("Received data from Redis successfully",
+                             extra={"channel": self.redis_pubsub_channel, "data": RedisClient.msg})
