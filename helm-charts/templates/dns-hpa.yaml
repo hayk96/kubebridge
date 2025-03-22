@@ -1,0 +1,29 @@
+{{- if .Values.dns.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "kubebridge.fullname" . }}
+  labels:
+    {{- include "kubebridge.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "kubebridge.fullname" . }}
+  minReplicas: {{ .Values.dns.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.dns.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.dns.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.dns.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.dns.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.dns.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}

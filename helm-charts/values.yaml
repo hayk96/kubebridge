@@ -1,0 +1,164 @@
+# Default values for kubebridge.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+global:
+  redisHost: redis-master
+  logLevel: debug
+
+  image:
+    repository: kubebridge/kubebridge
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+
+sync:
+  replicaCount: 1
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+  k8sServiceSyncIntervalSeconds: "3"
+  allowNamespaces: ["*"]
+  denyNamespaces: ['kube-system', 'kube-public']
+  allowServiceTypes:
+    - NodePort
+    - ClusterIP
+    - LoadBalancer
+
+  service:
+    type: ClusterIP
+
+  rbac:
+    create: true
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+dns:
+  domain: kube.bridge
+  replicaCount: 1
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  extraDNSConfig: |
+    {
+      "A": {
+        "kubebridge.io.": [
+          "127.0.0.1"
+        ]
+      },
+      "CNAME": {
+        "kube-bridge.io": "kubebridge.io."
+      }
+    }
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+redis:
+  fullnameOverride: "redis"
+  master:
+    podLabels:
+      app: redis
+    persistence:
+      enabled: false
+    extraFlags:
+      - "--maxmemory-policy allkeys-lru"
+    disableCommands:
+      - FLUSHALL
+  commonConfiguration: |-
+    appendonly no
+    save ""
+  replica:
+    replicaCount: 0
+  auth:
+    enabled: false

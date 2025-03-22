@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubebridge-dns
+  labels:
+    {{- include "kubebridge.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  {{- if not .Values.dns.autoscaling.enabled }}
+  replicas: {{ .Values.dns.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "kubebridge.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.dns.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "kubebridge.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.dns.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.dns.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-dns
+          securityContext:
+            {{- toYaml .Values.dns.securityContext | nindent 12 }}
+          image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.dns.imagePullPolicy }}
+          env:
+            - name: APP_NAME
+              value: dns
+            - name: LOG_LEVEL
+              value: {{ .Values.global.logLevel }}
+            - name: REDIS_HOST
+              value: {{ .Values.global.redisHost }}
+            - name: K8S_SERVICE_SYNC_INTERVAL
+              value: {{ .Values.sync.k8sServiceSyncIntervalSeconds | quote }}
+            - name: DOMAIN
+              value: {{ .Values.dns.domain }}
+            - name: EXTRA_DNS_CONFIG
+              value: {{ .Values.dns.extraDNSConfig | toJson }}
+          ports:
+            - name: dns
+              containerPort: 53
+              protocol: UDP
+          resources:
+            {{- toYaml .Values.dns.resources | nindent 12 }}
+      {{- with .Values.dns.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.dns.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.dns.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

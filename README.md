@@ -1,2 +1,2 @@
 # kubebridge
-Discover, Bridge, and Resolve Services in Kubernetes
+Discover, Link, and Resolve Services in Kubernetes
