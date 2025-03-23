@@ -39,8 +39,22 @@ spec:
               value: sync
             - name: LOG_LEVEL
               value: {{ .Values.global.logLevel }}
+            {{- if .Values.redis.enabled }}
             - name: REDIS_HOST
-              value: {{ .Values.global.redisHost }}
+              value: {{ .Release.Name }}-redis-master
+            {{- end }}
+            {{- if and .Values.redis.auth.enabled .Values.redis.auth.generatePassword }}
+            - name: REDIS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-username
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
+            {{- end }}
             - name: K8S_SERVICE_SYNC_INTERVAL
               value: {{ .Values.sync.k8sServiceSyncIntervalSeconds | quote }}
             - name: ALLOW_NAMESPACES

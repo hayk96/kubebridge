@@ -2,7 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
-  redisHost: redis-master
   logLevel: debug
 
   image:
@@ -145,7 +144,7 @@ dns:
   affinity: {}
 
 redis:
-  fullnameOverride: "redis"
+  enabled: true
   master:
     podLabels:
       app: redis
@@ -153,12 +152,9 @@ redis:
       enabled: false
     extraFlags:
       - "--maxmemory-policy allkeys-lru"
-    disableCommands:
-      - FLUSHALL
-  commonConfiguration: |-
-    appendonly no
-    save ""
   replica:
     replicaCount: 0
   auth:
-    enabled: false
+    enabled: true
+    generatePassword: true
+    existingSecret: "redis-secret"
