@@ -3,3 +3,4 @@ test/
 venv
 .venv
 .idea
+.git/
