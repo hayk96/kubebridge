@@ -5,9 +5,9 @@ global:
   logLevel: debug
 
   image:
-    repository: kubebridge/kubebridge
+    repository: hayk96/kubebridge
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "latest"
+    tag: "alpha-1"
 
 sync:
   replicaCount: 1
