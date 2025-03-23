@@ -20,7 +20,7 @@ KubeBridge is a Kubernetes-native service discovery and DNS resolution tool that
 
 KubeBridge can be installed using Helm. The following steps will guide you through the installation process.
 ```shell
-helm install kubebridge helm/charts --namespace kubebridge --create-namespace
+helm install kubebridge charts/kubebridge --namespace kubebridge --create-namespace
 ```
 
 ## Configuration
