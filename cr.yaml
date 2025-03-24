@@ -1,2 +1,3 @@
 sign: true
 key: hayk96/kubebridge
+keyring: public/public-key.asc
