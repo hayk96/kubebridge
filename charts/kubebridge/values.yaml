@@ -17,7 +17,7 @@ sync:
   fullnameOverride: ""
   k8sServiceSyncIntervalSeconds: "3"
   allowNamespaces: ["*"]
-  denyNamespaces: ['kube-system', 'kube-public']
+  denyNamespaces: ["kube-system", "kube-public"]
   allowServiceTypes:
     - NodePort
     - ClusterIP
