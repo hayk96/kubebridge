@@ -1,4 +1,6 @@
-# KubeBridge
+<h1 align="center" style="border-bottom: none">
+    <a href="https://kubebridge.io" target="_blank"><img alt="KubeBridge" src="docs/images/logo.svg" height="180px" width="180px"></a><br>KubeBridge
+</h1>
 
 _Discover, Bridge, and Resolve Services in Kubernetes_
 
