@@ -16,7 +16,7 @@ def domain_registrator(dns_server: dns.DNSServer, data: dict) -> None:
     }
 
 
-def dns_srv():
+def dns_srv() -> None:
     redis = RedisClient()
     if redis.ping_redis():
         dns_server = dns.DNSServer(port=53)

@@ -6,10 +6,34 @@ import json
 import sys
 import os
 
-extra_dns_config = json.loads(
-    os.environ.get(
-        "EXTRA_DNS_CONFIG",
-        '{"A": {"kubebridge.io.": ["127.0.0.1"]}, "CNAME": {"kube-bridge.io": "kubebridge.io."}}'))
+
+def load_extra_dns_config() -> dict:
+    """
+    Loads extra DNS records from environment variable
+    """
+
+    default_extra_config = """
+        {
+          "A": {
+            "kubebridge.io.": [
+              "127.0.0.1"
+            ]
+          },
+          "CNAME": {
+            "kube-bridge.io": "kubebridge.io."
+          }
+        }    
+    """
+    try:
+        extra_dns_config = json.loads(
+            os.environ.get(
+                "EXTRA_DNS_CONFIG",
+                default_extra_config))
+    except json.JSONDecodeError as e:
+        logger.error(f"Failed to parse 'EXTRA_DNS_CONFIG'. {e}")
+        sys.exit(1)
+
+    return extra_dns_config
 
 
 class DNSServer:
@@ -20,7 +44,7 @@ class DNSServer:
     def __init__(self, port=53):
         self.port = port
 
-        self.records = extra_dns_config
+        self.records = load_extra_dns_config()
 
     def create_response(self, request):
         reply = dns.DNSRecord(
