@@ -2,7 +2,7 @@
     <a href="https://kubebridge.io" target="_blank"><img alt="KubeBridge" src="docs/images/logo.svg" height="180px" width="180px"></a><br>KubeBridge
 </h1>
 
-_Discover, Bridge, and Resolve Services in Kubernetes_
+_Discover, bridge, and resolve services in Kubernetes_
 
 KubeBridge is a Kubernetes-native service discovery and DNS resolution tool that simplifies cross-namespace service communication within a cluster. It automatically maps Kubernetes services to DNS records in real-time, enabling continuous service discovery and resolution without manual configuration.
 
@@ -35,7 +35,7 @@ With the following configuration, KubeBridge will sync all services from all nam
 ```yaml
 sync:
   allowNamespaces: ["*"]
-  denyNamespaces: ['kube-system', 'kube-public']
+  denyNamespaces: ["kube-system", "kube-public"]
 ```
 
 #### Service discovery by service type
@@ -100,7 +100,7 @@ dns:
 
 Depending on the DNS server used in the cluster, you can apply the following configurations to resolve KubeBridge DNS requests. To configure CoreDNS or KubeDNS, you'll first need the ClusterIP of the `kubebridge-dns` service created by the Helm chart.
 ```yaml
-$ kubectl get svc kubebridge-dns --output jsonpath='{.spec.clusterIP}'
+$ kubectl -n kubebridge get svc kubebridge-dns --output jsonpath='{.spec.clusterIP}'
 10.96.244.221
 ```
 
