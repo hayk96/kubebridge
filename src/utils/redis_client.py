@@ -71,10 +71,10 @@ class RedisClient:
                 if message:
                     RedisClient.msg = literal_eval(message.get("data"))
                 else:
-                    raise Exception("No messages in Redis. Waiting...")
+                    raise Exception("No messages found in Redis.")
             except BaseException as e:
                 logger.error(
-                    f"Failed to subscribe data from Redis. {e}. Reconnecting...", extra={
+                    f"Redis subscription failed. {e} Retrying...", extra={
                         "redis_channel": self.redis_pubsub_channel})
                 time.sleep(5)
                 continue

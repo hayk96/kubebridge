@@ -82,7 +82,7 @@ class DNSServer:
         try:
             udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             udp_socket.bind(('', self.port))
-            logger.debug(f"DNS Server running on port {self.port}")
+            logger.info(f"DNS Server running on port {self.port}")
             for record_type, domains in self.records.items():
                 for domain, data in domains.items():
                     logger.debug(
