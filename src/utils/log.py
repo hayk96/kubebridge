@@ -22,8 +22,8 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
 
 
 logger = logging.getLogger(__name__)
-log_level_from_args = os.environ.get("LOG_LEVEL") or "INFO"
-logger.setLevel(log_level_from_args.upper())
+log_level = os.environ.get("LOG_LEVEL") or "INFO"
+logger.setLevel(log_level.upper())
 console_handler = logging.StreamHandler()
 console_handler.setFormatter(CustomJsonFormatter(
     "%(timestamp)s %(level)s %(message)s"))

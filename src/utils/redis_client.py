@@ -46,10 +46,10 @@ class RedisClient:
             self.client.publish(self.redis_pubsub_channel, data)
         except BaseException as e:
             logger.error(f"Failed to publish data to Redis. {e}",
-                         extra={"channel": self.redis_pubsub_channel})
+                         extra={"redis_channel": self.redis_pubsub_channel})
         else:
-            logger.debug(f"Data published to Redis successfully: {data}",
-                         extra={"channel": self.redis_pubsub_channel})
+            logger.debug(f"Data published to Redis successfully",
+                         extra={"redis_channel": self.redis_pubsub_channel, "data": data})
 
     def subscriber(self, func):
         """
@@ -75,10 +75,10 @@ class RedisClient:
             except BaseException as e:
                 logger.error(
                     f"Failed to subscribe data from Redis. {e}. Reconnecting...", extra={
-                        "channel": self.redis_pubsub_channel})
+                        "redis_channel": self.redis_pubsub_channel})
                 time.sleep(5)
                 continue
             else:
                 func(RedisClient.msg)
-                logger.debug("Received data from Redis successfully",
-                             extra={"channel": self.redis_pubsub_channel, "data": RedisClient.msg})
+                logger.debug("Data received from Redis successfully",
+                             extra={"redis_channel": self.redis_pubsub_channel, "data": RedisClient.msg})
