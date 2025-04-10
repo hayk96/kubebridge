@@ -87,7 +87,7 @@ class DNSServer:
                 for domain, data in domains.items():
                     logger.debug(
                         "Successfully syncing DNS records", extra={
-                            "domain": domain, "ips": data})
+                            "domain": domain, "record_type": record_type, "ips": data})
 
         except Exception as e:
             logger.error(f"Failed to create socket: {e}")
@@ -105,7 +105,7 @@ class DNSServer:
                     logger.error(f"Error handling DNS request: {e}")
                 else:
                     logger.debug("Successfully responding to DNS query", extra={
-                        "source_ip": f"{addr[0]}:{addr[1]}",
+                        "source_ip": addr[0],
                         "domain": request.q.qname,
                         "type": dns.QTYPE[request.q.qtype]
                     })
