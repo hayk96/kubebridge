@@ -2,21 +2,6 @@ apiVersion: v1
 entries:
   kubebridge:
   - apiVersion: v2
-    appVersion: 0.1.0-alpha.1
-    created: "2025-04-11T19:25:54.359868804Z"
-    dependencies:
-    - condition: redis.enabled
-      name: redis
-      repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-      version: 20.11.3
-    description: A Service Discovery for Kubernetes
-    digest: 421419443fd479ac9cf6fb9b9d3759ff4608b228eaa5c381907592a46eba1ee0
-    name: kubebridge
-    type: application
-    urls:
-    - https://github.com/hayk96/kubebridge/releases/download/kubebridge-0.1.0-alpha.1/kubebridge-0.1.0-alpha.1.tgz
-    version: 0.1.0-alpha.1
-  - apiVersion: v2
     appVersion: 0.1.0-alpha.0
     created: "2025-03-30T16:07:31.127041238Z"
     dependencies:
@@ -31,4 +16,4 @@ entries:
     urls:
     - https://github.com/hayk96/kubebridge/releases/download/kubebridge-0.1.0-alpha.0/kubebridge-0.1.0-alpha.0.tgz
     version: 0.1.0-alpha.0
-generated: "2025-04-11T19:25:54.359881288Z"
+generated: "2025-03-30T16:07:31.127050535Z"
