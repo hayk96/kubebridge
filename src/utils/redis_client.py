@@ -15,7 +15,7 @@ class RedisClient:
         self.redis_db = os.environ.get("REDIS_DB", 0)
         self.redis_username = os.environ.get("REDIS_USERNAME")
         self.redis_password = os.environ.get("REDIS_PASSWORD")
-        self.redis_pubsub_channel = "kubebridge:kubernetes_services"
+        self.redis_pubsub_channel = "KubeBridge:KubernetesServices"
 
         self.client = redis.Redis(
             host=self.redis_host,
