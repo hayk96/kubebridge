@@ -158,6 +158,11 @@ data:
     }
 ```
 
+## Roadmap
+
+- [ ] Support Kubernetes CRDs to manage custom DNS configurations.
+- [ ] Support traffic management for service discovery.
+
 ## Author and Maintainer
 
 Hayk Davtyan:
