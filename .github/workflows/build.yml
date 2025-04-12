@@ -11,46 +11,9 @@ env:
   SHA: ${{ github.sha }}
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-      - uses: chartboost/ruff-action@v1
-        name: Show what fixes will be applied
-        with:
-          src: "./src main.py"
-          version: 0.2.1
-          args: --diff --exit-zero
-      - uses: chartboost/ruff-action@v1
-        name: Apply fixes
-        with:
-          src: "./src main.py"
-          version: 0.2.1
-          args: --fix --show-fixes
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v5
-        with:
-          gpg_private_key: ${{ secrets.GH_ACTIONS_BOT_GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.GH_ACTIONS_BOT_GPG_PASSPHRASE }}
-          git_user_signingkey: true
-          git_commit_gpgsign: true
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_options: '-s -S'
-          commit_message: Commit lint fixes
-          commit_user_name: github-actions[bot]
-          commit_user_email: 46712946+hayk96@users.noreply.github.com
-          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-
   build:
     name: Build Docker images
     runs-on: ubuntu-24.04
-    needs: [lint]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -98,4 +61,5 @@ jobs:
       - name: Find vulnerabilities
         run: |
           docker run -v /var/run/docker.sock:/var/run/docker.sock \
-          anchore/grype:v0.72.0 docker:${{ github.repository }}:${{ env.SHA }} -o table --fail-on critical
+          anchore/grype:v0.91.0 docker:${{ github.repository }}:${{ env.SHA }} -o table \
+          --fail-on critical --scope all-layers --add-cpes-if-none --by-cve --show-suppressed
