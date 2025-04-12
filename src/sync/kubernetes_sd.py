@@ -10,7 +10,10 @@ allow_service_types = os.environ.get(
 
 try:
     if os.environ.get("DEPLOYMENT_ENV") == "local":
-        config.load_kube_config(config_file="~/.kube/kind/local")
+        kubeconfig_file_path = os.environ.get("KUBECONFIG_FILE_PATH")
+        if not kubeconfig_file_path:
+            raise ValueError("KUBECONFIG_FILE_PATH environment variable is not set.")
+        config.load_kube_config(config_file=kubeconfig_file_path)
     else:
         config.incluster_config.load_incluster_config()
 except BaseException as e:
