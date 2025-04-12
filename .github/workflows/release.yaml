@@ -118,40 +118,34 @@ jobs:
     runs-on: ubuntu-24.04
     needs: [push]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Fetch latest tag
-        id: latest_tag
+      - name: Release Chart
         run: |
-          git fetch --tags
-          latest=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo "Latest tag: $latest"
-          git checkout $latest
-          echo "tag=$latest" >> $GITHUB_OUTPUT
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v4.1.0
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-      - name: Export GPG key to legacy format
-        run: gpg --export-secret-keys > ~/.gnupg/pubring.gpg
-      - name: Install Helm
-        uses: azure/setup-helm@v1
-        with:
-          version: v3.7.2
-      - name: Add dependency chart repos
-        run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.7.0
-        with:
-          config: cr.yaml
-          charts_dir: charts
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          CR_SKIP_EXISTING: "true"
+          # Install cr
+          echo "Installing chart-releaser..."
+          curl -L https://github.com/helm/chart-releaser/releases/download/v1.6.0/chart-releaser_1.6.0_linux_amd64.tar.gz | tar xzf -
+          
+          # Create directories
+          mkdir -p .cr-release-packages
+          
+          # Package chart
+          echo "Packaging chart..."
+          helm package ./charts/* -d .cr-release-packages || exit 1
+          
+          # Create release with your tag
+          echo "Creating release..."
+          ./cr upload \
+            --owner ${{ github.repository_owner }} \
+            --git-repo ${{ github.event.repository.name }} \
+            --token ${{ secrets.GITHUB_TOKEN }} \
+            --package-path .cr-release-packages \
+            --release-name-template "{{ .Version }}" || exit 1
+            
+          # Update index
+          echo "Updating index..."
+          ./cr index \
+            --owner ${{ github.repository_owner }} \
+            --git-repo ${{ github.event.repository.name }} \
+            --pages-branch gh-pages \
+            --push || exit 1
+          
+          echo "Chart release completed successfully"
