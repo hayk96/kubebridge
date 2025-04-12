@@ -7,7 +7,7 @@ global:
   image:
     repository: hayk96/kubebridge
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v0.1.0-alpha.0"
+    tag: "v0.1.0-alpha.1"
 
 sync:
   replicaCount: 1
