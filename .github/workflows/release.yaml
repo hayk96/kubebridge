@@ -146,17 +146,25 @@ jobs:
             --title "$latest_tag" \
             --generate-notes
             
+          # Checkout gh-pages without removing existing files
+          git fetch origin gh-pages
+          git checkout gh-pages
+
           # Update index
           echo "Updating index..."
           helm repo index .cr-release-packages \
-            --url https://github.com/${{ github.repository }}/releases/download/$latest_tag
+            --url https://github.com/${{ github.repository }}/releases/download/$latest_tag \
+            --merge index.yaml
           
-          # Update gh-pages
-          git checkout gh-pages || git checkout --orphan gh-pages
+          # Update index.yaml
           cp .cr-release-packages/index.yaml ./index.yaml
           git add index.yaml
+          
+          # Configure git
           git config --global user.name github-actions[bot]
           git config --global user.email 46712946+hayk96@users.noreply.github.com
+          
+          # Commit and push
           git commit \
             --author="github-actions[bot] <github-actions[bot]@users.noreply.github.com>" \
             -m "Update index.yaml for release $latest_tag"
