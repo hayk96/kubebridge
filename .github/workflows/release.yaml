@@ -117,35 +117,49 @@ jobs:
     name: Publish Helm chart
     runs-on: ubuntu-24.04
     needs: [push]
+    permissions:
+      contents: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Release Chart
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          # Install cr
-          echo "Installing chart-releaser..."
-          curl -L https://github.com/helm/chart-releaser/releases/download/v1.6.0/chart-releaser_1.6.0_linux_amd64.tar.gz | tar xzf -
-          
           # Create directories
           mkdir -p .cr-release-packages
           
           # Package chart
           echo "Packaging chart..."
+          helm dependency update charts/${{ github.event.repository.name }} || exit 1          
           helm package ./charts/* -d .cr-release-packages || exit 1
           
-          # Create release with your tag
+          # Get latest tag
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "Latest tag: $latest_tag"
+          
+          # Create GitHub release
           echo "Creating release..."
-          ./cr upload \
-            --owner ${{ github.repository_owner }} \
-            --git-repo ${{ github.event.repository.name }} \
-            --token ${{ secrets.GITHUB_TOKEN }} \
-            --package-path .cr-release-packages \
-            --release-name-template "{{ .Version }}" || exit 1
+          gh release create $latest_tag .cr-release-packages/*.tgz \
+            --title "$latest_tag" \
+            --generate-notes
             
           # Update index
           echo "Updating index..."
-          ./cr index \
-            --owner ${{ github.repository_owner }} \
-            --git-repo ${{ github.event.repository.name }} \
-            --pages-branch gh-pages \
-            --push || exit 1
+          helm repo index .cr-release-packages \
+            --url https://github.com/${{ github.repository }}/releases/download/$latest_tag
+          
+          # Update gh-pages
+          git checkout gh-pages || git checkout --orphan gh-pages
+          cp .cr-release-packages/index.yaml ./index.yaml
+          git add index.yaml
+          git config --global user.name github-actions[bot]
+          git config --global user.email 46712946+hayk96@users.noreply.github.com
+          git commit \
+            --author="github-actions[bot] <github-actions[bot]@users.noreply.github.com>" \
+            -m "Update index.yaml for release $latest_tag"
+          git push origin gh-pages
           
           echo "Chart release completed successfully"
