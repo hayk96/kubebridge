@@ -9,11 +9,11 @@ allow_service_types = os.environ.get(
         "ClusterIP", "NodePort", "LoadBalancer"])
 
 try:
-    if os.environ.get("DEPLOYMENT_ENV") == "local":
-        kubeconfig_file_path = os.environ.get("KUBECONFIG_FILE_PATH")
-        if not kubeconfig_file_path:
-            raise ValueError("KUBECONFIG_FILE_PATH environment variable is not set.")
-        config.load_kube_config(config_file=kubeconfig_file_path)
+    if os.environ.get("DEPLOYMENT_ENV") == "development":
+        kubeconfig_file = os.environ.get("KUBECONFIG_FILE")
+        if not kubeconfig_file:
+            raise ValueError("The 'KUBECONFIG_FILE' environment variable is required in development mode.")
+        config.load_kube_config(config_file=kubeconfig_file)
     else:
         config.incluster_config.load_incluster_config()
 except BaseException as e:
