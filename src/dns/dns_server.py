@@ -38,7 +38,8 @@ def load_extra_dns_config() -> dict:
 
 class DNSServer:
     """
-    Supports A and CNAME records
+    A DNS server that supports
+    "A" and "CNAME" type of records
     """
 
     def __init__(self, port=53):
@@ -104,10 +105,10 @@ class DNSServer:
                 except Exception as e:
                     logger.error(f"Error handling DNS request: {e}")
                 else:
-                    logger.debug("Successfully responding to DNS query", extra={
+                    logger.debug("Responding to DNS query", extra={
                         "source_ip": addr[0],
                         "domain": request.q.qname,
-                        "type": dns.QTYPE[request.q.qtype]
+                        "record_type": dns.QTYPE[request.q.qtype]
                     })
 
         except KeyboardInterrupt:

@@ -6,6 +6,9 @@ import os
 
 
 class RedisClient:
+    """
+    Redis client for publishing and subscribing messages
+    """
     msg: dict = {}
     read_msg_counter: int = -1
 
@@ -28,7 +31,9 @@ class RedisClient:
     def ping_redis(self,
                    msg="Redis is up. Ping has been succeeded to",
                    ext_msg=None) -> bool:
-        """This function pings to Redis server"""
+        """
+        Pings to Redis server to check if it is up
+        """
         try:
             if self.client.ping():
                 logger.info(
@@ -40,7 +45,7 @@ class RedisClient:
 
     def publisher(self, data: str):
         """
-        Publish data to Redis
+        Publish data to Redis channel
         """
         try:
             self.client.publish(self.redis_pubsub_channel, data)
@@ -53,7 +58,7 @@ class RedisClient:
 
     def subscriber(self, func):
         """
-        Subscribe data from Redis
+        Subscribe data from Redis channel
         """
         pubsub = self.client.pubsub()
         pubsub.subscribe(self.redis_pubsub_channel)

@@ -3,9 +3,9 @@ from src.dns import core as dns_core
 from src.utils.log import logger
 import os
 
-app = os.environ.get("APP_NAME", "").lower()
 
 if __name__ == "__main__":
+    app = os.environ.get("APP_NAME", "").lower()
     try:
         logger.info(f"Starting '{app}' application")
         if app == "sync":
