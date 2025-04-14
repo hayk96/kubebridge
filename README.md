@@ -90,7 +90,7 @@ KubeBridge can be installed using Helm. The following steps will guide you throu
 ```shell
 helm repo add kubebridge https://hayk96.github.io/kubebridge
 helm repo update
-helm install kubebridge kubebridge/kubebridge -n kubebridge --create-namespace
+helm install kubebridge kubebridge/kubebridge -n kubebridge --create-namespace --devel
 ```
 
 ## Configuration
