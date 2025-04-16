@@ -23,7 +23,7 @@ def allow_sync(service_namespace: str, service_annotations: dict) -> bool:
     Checks if the service is allowed to be synced
     """
     allowed_namespaces = os.environ.get("ALLOW_NAMESPACES", ["*"])
-    denied_namespaces = os.environ.get("ALLOW_NAMESPACES", [])
+    denied_namespaces = os.environ.get("DENY_NAMESPACES", [])
     service_sync_annotation = "kubebridge.io/service-sync"
 
     allow_ns: bool = (service_namespace in allowed_namespaces or "*" in allowed_namespaces) and \
