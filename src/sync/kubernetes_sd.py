@@ -16,8 +16,8 @@ try:
         config.load_kube_config(config_file=kubeconfig_file)
     else:
         config.incluster_config.load_incluster_config()
-except BaseException as e:
-    logger.error(e)
+except BaseException as err:
+    logger.error(err)
     sys.exit(1)
 
 
@@ -52,5 +52,6 @@ def kubernetes_service_discovery() -> dict:
                 else:
                     services[svc_name]["cluster_ips"].extend(svc_cluster_ips)
                     services[svc_name]["namespaces"].extend(scv_namespace)
-        logger.debug("Kubernetes services fetched successfully")
+        logger.info("Successfully fetched Kubernetes services.",
+                    extra={"service_count": len(services)})
         return services

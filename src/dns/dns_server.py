@@ -83,7 +83,7 @@ class DNSServer:
         try:
             udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             udp_socket.bind(('', self.port))
-            logger.info(f"DNS Server running on port {self.port}")
+            logger.info(f"DNS server running on port {self.port}")
             for record_type, domains in self.records.items():
                 for domain, data in domains.items():
                     logger.debug(
@@ -103,7 +103,7 @@ class DNSServer:
                     udp_socket.sendto(reply.pack(), addr)
 
                 except Exception as e:
-                    logger.error(f"Error handling DNS request: {e}")
+                    logger.error(f"Failed to handle DNS request: {e}")
                 else:
                     logger.debug("Responding to DNS query", extra={
                         "source_ip": addr[0],
