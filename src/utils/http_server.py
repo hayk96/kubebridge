@@ -24,7 +24,7 @@ def http_srv():
         logger.info(f"HTTP server listening on {host}:{port}")
         server.run()
     except BaseException as e:
-        logger.error(e)
+        logger.error(f"Failed to start HTTP server. {e}")
 
 
 @app.get("/ready", status_code=status.HTTP_200_OK)
@@ -33,12 +33,16 @@ async def ready(response: Response):
     This endpoint allows to check if the
     service is ready to accept requests.
     """
-    if not redis.ping_redis():
-        response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
-        return {
-            "status": "error",
-            "message": "Service is unavailable due to a readiness failure"}
-    return {"status": "success", "message": "Service is ready to receive requests"}
+    if redis.ping_redis(
+            msg="Service is ready to receive requests",
+            ext_msg={"request_path": "/ready"}
+    ):
+        return {"status": "success",
+                "message": "Service is ready to receive requests"}
+    response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+    return {
+        "status": "error",
+        "message": "Service is unavailable due to a readiness failure"}
 
 
 @app.get("/health", status_code=status.HTTP_200_OK)

@@ -29,14 +29,14 @@ class RedisClient:
             decode_responses=True)
 
     def ping_redis(self,
-                   msg="Redis is up. Ping has been succeeded to",
+                   msg="Successfully connected to Redis server",
                    ext_msg: dict = None) -> bool:
         """
         Pings to Redis server to check if it is up
         """
         try:
             if self.client.ping():
-                logger.info(
+                logger.debug(
                     f"{msg} {self.redis_host}:{self.redis_port}", extra=ext_msg)
                 return True
         except BaseException as err:
