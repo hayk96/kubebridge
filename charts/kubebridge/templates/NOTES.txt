@@ -1,12 +1,35 @@
-1. Get the application URL by running these commands:
-{{- if contains "LoadBalancer" .Values.sync.service.type }}
-     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
-           You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "kubebridge.fullname" . }}'
-  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "kubebridge.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
-  echo http://$SERVICE_IP:{{ .Values.sync.service.port }}
-{{- else if contains "ClusterIP" .Values.sync.service.type }}
-  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "kubebridge.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
-  export CONTAINER_PORT=$(kubectl get pod --namespace {{ .Release.Namespace }} $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  echo "Visit http://127.0.0.1:8080 to use your application"
-  kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
-{{- end }}
+{{- /*
+  Helm Chart: KubeBridge
+  GitHub: https://github.com/hayk96/kubebridge
+*/ -}}
+
+────────────────────────────────────────────
+🚀 KubeBridge has been successfully deployed!
+────────────────────────────────────────────
+
+📦 Release Name:   {{ .Release.Name }}
+📍 Namespace:       {{ .Release.Namespace }}
+🔗 GitHub:          https://github.com/hayk96/kubebridge
+
+💡 Next steps:
+--------------------------------------------
+
+1. Check the status of your release:
+   helm status {{ .Release.Name }} -n {{ .Release.Namespace }}
+
+2. View all deployed resources:
+   kubectl get all -n {{ .Release.Namespace }}
+
+3. Tail logs from the KubeBridge pods:
+   kubectl logs -n {{ .Release.Namespace }} -l app.kubernetes.io/name=kubebridge --tail=100 -f
+
+4. Port-forward the DNS service locally (optional):
+   kubectl port-forward svc/{{ include "kubebridge.fullname" . }}-dns 5353 :53 -n {{ .Release.Namespace }}
+   Then execute: dig @localhost -p 5353 {{ include "kubebridge.fullname" . }}-dns.{{ .Values.dns.domain }}
+
+📚 Documentation:
+--------------------------------------------
+README:        https://github.com/hayk96/kubebridge#readme
+Report Issues: https://github.com/hayk96/kubebridge/issues
+
+🙏 Thank you for using KubeBridge!
