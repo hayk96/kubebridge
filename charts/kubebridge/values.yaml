@@ -2,7 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
-  logLevel: debug
+  logLevel: info
+  nameOverride: ""
+  fullnameOverride: ""
 
   image:
     repository: hayk96/kubebridge
@@ -13,8 +15,6 @@ sync:
   replicaCount: 1
   imagePullPolicy: IfNotPresent
   imagePullSecrets: []
-  nameOverride: ""
-  fullnameOverride: ""
   k8sServiceSyncIntervalSeconds: "3"
   allowNamespaces: ["*"]
   denyNamespaces: ["kube-system", "kube-public"]
@@ -63,6 +63,40 @@ sync:
     #   cpu: 100m
     #   memory: 128Mi
 
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+  ## @param sync.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+  ## @param sync.livenessProbe.periodSeconds Period seconds for livenessProbe
+  ## @param sync.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+  ## @param sync.livenessProbe.failureThreshold Failure threshold for livenessProbe
+  ## @param sync.livenessProbe.successThreshold Success threshold for livenessProbe
+
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8080
+    initialDelaySeconds: 5
+    timeoutSeconds: 3
+    periodSeconds: 10
+    successThreshold: 1
+    failureThreshold: 6
+
+  ## @param sync.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+  ## @param sync.readinessProbe.periodSeconds Period seconds for readinessProbe
+  ## @param sync.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+  ## @param sync.readinessProbe.failureThreshold Failure threshold for readinessProbe
+  ## @param sync.readinessProbe.successThreshold Success threshold for readinessProbe
+  ##
+
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 8080
+    initialDelaySeconds: 5
+    timeoutSeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    failureThreshold: 6
+
   autoscaling:
     enabled: false
     minReplicas: 1
@@ -81,8 +115,6 @@ dns:
   replicaCount: 1
   imagePullPolicy: IfNotPresent
   imagePullSecrets: []
-  nameOverride: ""
-  fullnameOverride: ""
 
   extraDNSConfig: |
     {
@@ -129,6 +161,40 @@ dns:
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+  ## @param dns.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+  ## @param dns.livenessProbe.periodSeconds Period seconds for livenessProbe
+  ## @param dns.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+  ## @param dns.livenessProbe.failureThreshold Failure threshold for livenessProbe
+  ## @param dns.livenessProbe.successThreshold Success threshold for livenessProbe
+
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8080
+    initialDelaySeconds: 5
+    timeoutSeconds: 3
+    periodSeconds: 10
+    successThreshold: 1
+    failureThreshold: 6
+
+  ## @param dns.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+  ## @param dns.readinessProbe.periodSeconds Period seconds for readinessProbe
+  ## @param dns.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+  ## @param dns.readinessProbe.failureThreshold Failure threshold for readinessProbe
+  ## @param dns.readinessProbe.successThreshold Success threshold for readinessProbe
+  ##
+
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 8080
+    initialDelaySeconds: 5
+    timeoutSeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    failureThreshold: 6
 
   autoscaling:
     enabled: false
