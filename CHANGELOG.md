@@ -1,3 +1,18 @@
+## [v0.1.0-alpha.4] - 2025-04-24
+### New Features
+- [`090f078`](https://github.com/hayk96/kubebridge/commit/090f078c40d5c546b65cb728fc4b7abacf9a8d94) - Add HTTP server and /health endpoint *(commit by [@hayk96](https://github.com/hayk96))*
+- [`34c67aa`](https://github.com/hayk96/kubebridge/commit/34c67aa22af503747c17ef43e5348b7b580a967a) - And /ready endpoint in HTTP server *(commit by [@hayk96](https://github.com/hayk96))*
+
+### Chores
+- [`354d540`](https://github.com/hayk96/kubebridge/commit/354d540709f5646e6587a8475f5f97b9606a14b6) - Add HTTP 8080 port in Dockerfile *(commit by [@hayk96](https://github.com/hayk96))*
+- [`ba6ddae`](https://github.com/hayk96/kubebridge/commit/ba6ddaee74130578e41a723e0849734d4bb21f5b) - Update HTTP server functions *(commit by [@hayk96](https://github.com/hayk96))*
+- [`dd6e933`](https://github.com/hayk96/kubebridge/commit/dd6e9337159a35055da7d1802cd033c312007668) - Add labels to K8s resources *(commit by [@hayk96](https://github.com/hayk96))*
+- [`2408eab`](https://github.com/hayk96/kubebridge/commit/2408eab80656116212af6bfeb56e0f0402b8c97b) - **charts**: Add livenessProbe *(commit by [@hayk96](https://github.com/hayk96))*
+- [`b0f724c`](https://github.com/hayk96/kubebridge/commit/b0f724c116862bcb4a43c99edce52caefc09111f) - **charts**: Update NOTES.txt *(commit by [@hayk96](https://github.com/hayk96))*
+- [`ee5bbc0`](https://github.com/hayk96/kubebridge/commit/ee5bbc0d7b79e098ff9ca90d49f716d842de9bcb) - **charts**: Update values.yaml *(commit by [@hayk96](https://github.com/hayk96))*
+- [`e67cb57`](https://github.com/hayk96/kubebridge/commit/e67cb57a82fe8d8017036dca94b8cdd64d85e1b1) - Bump release *(commit by [@hayk96](https://github.com/hayk96))*
+
+
 ## [v0.1.0-alpha.3] - 2025-04-16
 ### New Features
 - [`a9238b5`](https://github.com/hayk96/kubebridge/commit/a9238b51a4816e16f549f9809791130bd5d1e490) - **CI**: Enable update-changelog job *(commit by [@hayk96](https://github.com/hayk96))*
@@ -19,3 +34,4 @@
 
 [v0.1.0-alpha.0]: https://github.com/hayk96/kubebridge/tree/v0.1.0-alpha.0
 [v0.1.0-alpha.3]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.2...v0.1.0-alpha.3
+[v0.1.0-alpha.4]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.3...v0.1.0-alpha.4
