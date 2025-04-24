@@ -71,8 +71,10 @@ spec:
               protocol: UDP
           resources:
             {{- toYaml .Values.dns.resources | nindent 12 }}
+          livenessProbe:
+            {{ toYaml .Values.dns.livenessProbe | nindent 12 }}
           readinessProbe:
-            {{ toYaml .Values.sync.readinessProbe | nindent 12 }}
+            {{ toYaml .Values.dns.readinessProbe | nindent 12 }}
       {{- with .Values.dns.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

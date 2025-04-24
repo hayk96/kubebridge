@@ -70,6 +70,8 @@ spec:
               value: '{{ .Values.sync.allowServiceTypes | toJson }}'
           resources:
             {{- toYaml .Values.sync.resources | nindent 12 }}
+          livenessProbe:
+            {{ toYaml .Values.sync.livenessProbe | nindent 12 }}
           readinessProbe:
             {{ toYaml .Values.sync.readinessProbe | nindent 12 }}
       {{- with .Values.sync.nodeSelector }}
