@@ -30,7 +30,7 @@ class RedisClient:
 
     def ping_redis(self,
                    msg="Redis is up. Ping has been succeeded to",
-                   ext_msg=None) -> bool:
+                   ext_msg: dict = None) -> bool:
         """
         Pings to Redis server to check if it is up
         """
