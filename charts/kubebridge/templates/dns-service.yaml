@@ -4,6 +4,7 @@ metadata:
   name: {{ include "kubebridge.fullname" . }}-dns
   labels:
     {{- include "kubebridge.labels" . | nindent 4 }}
+    app.kubernetes.io/component: dns
   namespace: {{ .Release.Namespace }}
 spec:
   type: {{ .Values.sync.service.type }}
@@ -18,3 +19,4 @@ spec:
       targetPort: 53
   selector:
     {{- include "kubebridge.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: dns

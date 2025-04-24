@@ -4,6 +4,7 @@ metadata:
   name: kubebridge-sync
   labels:
     {{- include "kubebridge.labels" . | nindent 4 }}
+    app.kubernetes.io/component: sync
   namespace: {{ .Release.Namespace }}
 spec:
   {{- if not .Values.sync.autoscaling.enabled }}
@@ -12,6 +13,7 @@ spec:
   selector:
     matchLabels:
       {{- include "kubebridge.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: sync
   template:
     metadata:
       {{- with .Values.sync.podAnnotations }}
@@ -20,6 +22,7 @@ spec:
       {{- end }}
       labels:
         {{- include "kubebridge.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: sync
     spec:
       {{- with .Values.sync.imagePullSecrets }}
       imagePullSecrets:
@@ -67,6 +70,8 @@ spec:
               value: '{{ .Values.sync.allowServiceTypes | toJson }}'
           resources:
             {{- toYaml .Values.sync.resources | nindent 12 }}
+          readinessProbe:
+            {{ toYaml .Values.sync.readinessProbe | nindent 12 }}
       {{- with .Values.sync.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -79,3 +84,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+

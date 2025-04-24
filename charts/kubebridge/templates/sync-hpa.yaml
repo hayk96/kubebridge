@@ -5,6 +5,7 @@ metadata:
   name: {{ include "kubebridge.fullname" . }}
   labels:
     {{- include "kubebridge.labels" . | nindent 4 }}
+    app.kubernetes.io/component: sync
   namespace: {{ .Release.Namespace }}
 spec:
   scaleTargetRef:
