@@ -1,3 +1,10 @@
+## [v0.1.0-beta.1] - 2025-04-27
+### Chores
+- [`327109e`](https://github.com/hayk96/kubebridge/commit/327109e8c30ab7b5f9111327316f47a6d9ec0882) - **src**: PEP8 formatting *(commit by [@hayk96](https://github.com/hayk96))*
+- [`047a487`](https://github.com/hayk96/kubebridge/commit/047a487f0157c1d12b233d8fc21998df2029b44d) - **chars**: Update K8S API versions and labels *(commit by [@hayk96](https://github.com/hayk96))*
+- [`fee9c56`](https://github.com/hayk96/kubebridge/commit/fee9c5652df8438f5d27bab815d94a62a1b62735) - Bump app and chart beta version *(commit by [@hayk96](https://github.com/hayk96))*
+
+
 ## [v0.1.0-alpha.4] - 2025-04-24
 ### New Features
 - [`090f078`](https://github.com/hayk96/kubebridge/commit/090f078c40d5c546b65cb728fc4b7abacf9a8d94) - Add HTTP server and /health endpoint *(commit by [@hayk96](https://github.com/hayk96))*
@@ -35,3 +42,4 @@
 [v0.1.0-alpha.0]: https://github.com/hayk96/kubebridge/tree/v0.1.0-alpha.0
 [v0.1.0-alpha.3]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.2...v0.1.0-alpha.3
 [v0.1.0-alpha.4]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.3...v0.1.0-alpha.4
+[v0.1.0-beta.1]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.4...v0.1.0-beta.1
