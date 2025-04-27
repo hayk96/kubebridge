@@ -22,7 +22,7 @@ def load_extra_dns_config() -> dict:
           "CNAME": {
             "kube-bridge.io": "kubebridge.io."
           }
-        }    
+        }
     """
     try:
         extra_dns_config = json.loads(
@@ -87,8 +87,11 @@ class DNSServer:
             for record_type, domains in self.records.items():
                 for domain, data in domains.items():
                     logger.debug(
-                        "Successfully syncing DNS records", extra={
-                            "domain": domain, "record_type": record_type, "ips": data})
+                        "Successfully syncing DNS records",
+                        extra={
+                            "domain": domain,
+                            "record_type": record_type,
+                            "ips": data})
 
         except Exception as e:
             logger.error(f"Failed to create socket: {e}")

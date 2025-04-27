@@ -53,8 +53,8 @@ class RedisClient:
             logger.error(f"Failed to publish data to Redis. {e}",
                          extra={"redis_channel": self.redis_pubsub_channel})
         else:
-            logger.debug(f"Data published to Redis successfully",
-                         extra={"redis_channel": self.redis_pubsub_channel, "data": data})
+            logger.debug(f"Data published to Redis successfully", extra={
+                         "redis_channel": self.redis_pubsub_channel, "data": data})
 
     def subscriber(self, func):
         """
@@ -85,5 +85,8 @@ class RedisClient:
                 continue
             else:
                 func(RedisClient.msg)
-                logger.debug("Data received from Redis successfully",
-                             extra={"redis_channel": self.redis_pubsub_channel, "data": RedisClient.msg})
+                logger.debug(
+                    "Data received from Redis successfully",
+                    extra={
+                        "redis_channel": self.redis_pubsub_channel,
+                        "data": RedisClient.msg})

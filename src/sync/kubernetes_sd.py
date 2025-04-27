@@ -12,7 +12,8 @@ try:
     if os.environ.get("DEPLOYMENT_ENV") == "development":
         kubeconfig_file = os.environ.get("KUBECONFIG_FILE")
         if not kubeconfig_file:
-            raise ValueError("The 'KUBECONFIG_FILE' environment variable is required in development mode.")
+            raise ValueError(
+                "The 'KUBECONFIG_FILE' environment variable is required in development mode.")
         config.load_kube_config(config_file=kubeconfig_file)
     else:
         config.incluster_config.load_incluster_config()
