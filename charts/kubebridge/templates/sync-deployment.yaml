@@ -1,10 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubebridge-sync
+  name: {{ include "kubebridge.fullname" . }}-sync
   labels:
     {{- include "kubebridge.labels" . | nindent 4 }}
     app.kubernetes.io/component: sync
+    app: {{ include "kubebridge.fullname" . }}-sync
   namespace: {{ .Release.Namespace }}
 spec:
   {{- if not .Values.sync.autoscaling.enabled }}
@@ -14,6 +15,7 @@ spec:
     matchLabels:
       {{- include "kubebridge.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: sync
+      app: {{ include "kubebridge.fullname" . }}-sync
   template:
     metadata:
       {{- with .Values.sync.podAnnotations }}
@@ -23,16 +25,17 @@ spec:
       labels:
         {{- include "kubebridge.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: sync
+        app: {{ include "kubebridge.fullname" . }}-sync
     spec:
       {{- with .Values.sync.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: kubebridge-sync-sa
+      serviceAccountName: {{ include "kubebridge.fullname" . }}-sync-sa
       securityContext:
         {{- toYaml .Values.sync.podSecurityContext | nindent 8 }}
       containers:
-        - name: kubebridge-sync
+        - name: {{ include "kubebridge.fullname" . }}-sync
           securityContext:
             {{- toYaml .Values.sync.securityContext | nindent 12 }}
           image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag | default .Chart.AppVersion }}"

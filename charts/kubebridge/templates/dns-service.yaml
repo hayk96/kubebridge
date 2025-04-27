@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "kubebridge.labels" . | nindent 4 }}
     app.kubernetes.io/component: dns
+    app: {{ include "kubebridge.fullname" . }}-dns
   namespace: {{ .Release.Namespace }}
 spec:
   type: {{ .Values.sync.service.type }}
@@ -20,3 +21,4 @@ spec:
   selector:
     {{- include "kubebridge.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: dns
+    app: {{ include "kubebridge.fullname" . }}-dns

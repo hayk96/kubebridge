@@ -1,17 +1,18 @@
 {{- if .Values.sync.autoscaling.enabled }}
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "kubebridge.fullname" . }}
+  name: {{ include "kubebridge.fullname" . }}-sync
   labels:
     {{- include "kubebridge.labels" . | nindent 4 }}
     app.kubernetes.io/component: sync
+    app: {{ include "kubebridge.fullname" . }}-sync
   namespace: {{ .Release.Namespace }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "kubebridge.fullname" . }}
+    name: {{ include "kubebridge.fullname" . }}-sync
   minReplicas: {{ .Values.sync.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.sync.autoscaling.maxReplicas }}
   metrics:
@@ -19,12 +20,16 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: {{ .Values.sync.autoscaling.targetCPUUtilizationPercentage }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.sync.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
     {{- if .Values.sync.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.sync.autoscaling.targetMemoryUtilizationPercentage }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.sync.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
 {{- end }}

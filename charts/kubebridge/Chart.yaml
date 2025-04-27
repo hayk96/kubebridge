@@ -1,6 +1,15 @@
 apiVersion: v2
 name: kubebridge
 description: A Service Discovery for Kubernetes
+icon: https://raw.githubusercontent.com/hayk96/kubebridge/4ff0630fbd34d794211567cb1d07ddb0d35b8af2/docs/images/logo.svg
+maintainers:
+  - name: Hayk Davtyan
+    url: https://github.com/hayk96
+keywords:
+  - service-discovery
+  - networking
+  - kubernetes
+  - dns
 
 # A chart can be either an 'application' or a 'library' chart.
 #

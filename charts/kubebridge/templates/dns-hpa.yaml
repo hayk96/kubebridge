@@ -1,17 +1,18 @@
 {{- if .Values.dns.autoscaling.enabled }}
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "kubebridge.fullname" . }}
+  name: {{ include "kubebridge.fullname" . }}-dns
   labels:
     {{- include "kubebridge.labels" . | nindent 4 }}
     app.kubernetes.io/component: dns
+    app: {{ include "kubebridge.fullname" . }}-dns
   namespace: {{ .Release.Namespace }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "kubebridge.fullname" . }}
+    name: {{ include "kubebridge.fullname" . }}-dns
   minReplicas: {{ .Values.dns.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.dns.autoscaling.maxReplicas }}
   metrics:
@@ -19,12 +20,16 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: {{ .Values.dns.autoscaling.targetCPUUtilizationPercentage }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.dns.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
     {{- if .Values.dns.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.dns.autoscaling.targetMemoryUtilizationPercentage }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.dns.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
 {{- end }}

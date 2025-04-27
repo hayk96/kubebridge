@@ -63,12 +63,12 @@ sync:
     #   cpu: 100m
     #   memory: 128Mi
 
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-  ## @param sync.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-  ## @param sync.livenessProbe.periodSeconds Period seconds for livenessProbe
-  ## @param sync.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-  ## @param sync.livenessProbe.failureThreshold Failure threshold for livenessProbe
-  ## @param sync.livenessProbe.successThreshold Success threshold for livenessProbe
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+  # @param sync.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+  # @param sync.livenessProbe.periodSeconds Period seconds for livenessProbe
+  # @param sync.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+  # @param sync.livenessProbe.failureThreshold Failure threshold for livenessProbe
+  # @param sync.livenessProbe.successThreshold Success threshold for livenessProbe
 
   livenessProbe:
     httpGet:
@@ -80,12 +80,12 @@ sync:
     successThreshold: 1
     failureThreshold: 6
 
-  ## @param sync.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-  ## @param sync.readinessProbe.periodSeconds Period seconds for readinessProbe
-  ## @param sync.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-  ## @param sync.readinessProbe.failureThreshold Failure threshold for readinessProbe
-  ## @param sync.readinessProbe.successThreshold Success threshold for readinessProbe
-  ##
+  # @param sync.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+  # @param sync.readinessProbe.periodSeconds Period seconds for readinessProbe
+  # @param sync.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+  # @param sync.readinessProbe.failureThreshold Failure threshold for readinessProbe
+  # @param sync.readinessProbe.successThreshold Success threshold for readinessProbe
+  #
 
   readinessProbe:
     httpGet:
@@ -100,7 +100,7 @@ sync:
   autoscaling:
     enabled: false
     minReplicas: 1
-    maxReplicas: 100
+    maxReplicas: 20
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
 
@@ -162,12 +162,12 @@ dns:
     #   cpu: 100m
     #   memory: 128Mi
 
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-  ## @param dns.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-  ## @param dns.livenessProbe.periodSeconds Period seconds for livenessProbe
-  ## @param dns.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-  ## @param dns.livenessProbe.failureThreshold Failure threshold for livenessProbe
-  ## @param dns.livenessProbe.successThreshold Success threshold for livenessProbe
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+  # @param dns.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+  # @param dns.livenessProbe.periodSeconds Period seconds for livenessProbe
+  # @param dns.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+  # @param dns.livenessProbe.failureThreshold Failure threshold for livenessProbe
+  # @param dns.livenessProbe.successThreshold Success threshold for livenessProbe
 
   livenessProbe:
     httpGet:
@@ -179,12 +179,11 @@ dns:
     successThreshold: 1
     failureThreshold: 6
 
-  ## @param dns.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-  ## @param dns.readinessProbe.periodSeconds Period seconds for readinessProbe
-  ## @param dns.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-  ## @param dns.readinessProbe.failureThreshold Failure threshold for readinessProbe
-  ## @param dns.readinessProbe.successThreshold Success threshold for readinessProbe
-  ##
+  # @param dns.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+  # @param dns.readinessProbe.periodSeconds Period seconds for readinessProbe
+  # @param dns.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+  # @param dns.readinessProbe.failureThreshold Failure threshold for readinessProbe
+  # @param dns.readinessProbe.successThreshold Success threshold for readinessProbe
 
   readinessProbe:
     httpGet:
@@ -199,7 +198,7 @@ dns:
   autoscaling:
     enabled: false
     minReplicas: 1
-    maxReplicas: 100
+    maxReplicas: 20
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
 
@@ -216,8 +215,6 @@ redis:
       app: redis
     persistence:
       enabled: false
-    extraFlags:
-      - "--maxmemory-policy allkeys-lru"
   replica:
     replicaCount: 0
   auth:
