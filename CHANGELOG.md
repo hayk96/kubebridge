@@ -35,11 +35,22 @@
 - [`8bce850`](https://github.com/hayk96/kubebridge/commit/8bce850c2c54097ac5feb11426f896eaf1e5e393) - Improve logging messages *(commit by [@hayk96](https://github.com/hayk96))*
 
 
+## [v0.1.0-alpha.2] - 2025-04-13
+### New Features
+- [`f262eab`](https://github.com/hayk96/kubebridge/commit/f262eabf859daf31c2dc85629bf176bdd72a1761) - **feat(CI)**: Update Release workflow *(commit by [@hayk96](https://github.com/hayk96))*
+- [`f262eab`](https://github.com/hayk96/kubebridge/commit/f262eabf859daf31c2dc85629bf176bdd72a1761) - **fix(Dockerfile)**: Use slim image to resolve CVE-2025-29087 *(commit by [@hayk96](https://github.com/hayk96))*
+
+## [v0.1.0-alpha.1] - 2025-04-13
+### New Features
+- [`6313762`](https://github.com/hayk96/kubebridge/commit/63137620c7b9627547c5470f7ca8b55f37d4fa9a) - **feat**: Add KUBECONFIG_FILE_PATH env variable *(commit by [@hayk96](https://github.com/hayk96))*
+
 ## [v0.1.0-alpha.0] - 2025-03-30
 ### New Features
 - [ENHANCEMENT] A Service Discovery for Kubernetes
 
 [v0.1.0-alpha.0]: https://github.com/hayk96/kubebridge/tree/v0.1.0-alpha.0
+[v0.1.0-alpha.1]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.0...v0.1.0-alpha.1
+[v0.1.0-alpha.2]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.1...v0.1.0-alpha.2
 [v0.1.0-alpha.3]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.2...v0.1.0-alpha.3
 [v0.1.0-alpha.4]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.3...v0.1.0-alpha.4
 [v0.1.0-beta.1]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.4...v0.1.0-beta.1
