@@ -6,7 +6,6 @@ _Discover, bridge, and resolve services in Kubernetes_
 
 <div align="center">
 
-![Build](https://github.com/hayk96/kubebridge/actions/workflows/build.yml/badge.svg)
 ![Release](https://github.com/hayk96/kubebridge/actions/workflows/release.yml/badge.svg)
 [![Latest Release](https://img.shields.io/github/release/hayk96/kubebridge.svg?label=latest%20release)](https://github.com/hayk96/kubebridge/releases)
 ![Github stars](https://badgen.net/github/stars/hayk96/kubebridge?icon=github&label=stars)
