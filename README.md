@@ -14,6 +14,7 @@ _Discover, bridge, and resolve services in Kubernetes_
 [![Docker Stars](https://badgen.net/docker/stars/hayk96/kubebridge?icon=docker&label=stars)](https://hub.docker.com/r/hayk96/kubebridge/)
 [![Docker Pulls](https://badgen.net/docker/pulls/hayk96/kubebridge?icon=docker&label=pulls)](https://hub.docker.com/r/hayk96/kubebridge/)
 [![Docker Image Size](https://badgen.net/docker/size/hayk96/kubebridge?icon=docker&label=image%20size)](https://hub.docker.com/r/hayk96/kubebridge/)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/kubebridge)](https://artifacthub.io/packages/search?repo=kubebridge)
 
 </div>
 
@@ -89,7 +90,7 @@ KubeBridge can be installed using Helm. The following steps will guide you throu
 ```shell
 helm repo add kubebridge https://hayk96.github.io/kubebridge
 helm repo update
-helm install kubebridge kubebridge/kubebridge -n kubebridge --create-namespace --devel
+helm install kubebridge kubebridge/kubebridge -n kubebridge --create-namespace
 ```
 
 ## Configuration
