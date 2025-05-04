@@ -24,9 +24,8 @@
    kubectl logs -n {{ .Release.Namespace }} -l app={{ include "kubebridge.fullname" . }}-sync --tail=100 -f # sync
    kubectl logs -n {{ .Release.Namespace }} -l app={{ include "kubebridge.fullname" . }}-dns  --tail=100 -f # dns
 
-4. Port-forward the DNS service locally (optional):
-   kubectl port-forward svc/{{ include "kubebridge.fullname" . }}-dns 5353 :53 -n {{ .Release.Namespace }}
-   Then execute: dig @localhost -p 5353 {{ include "kubebridge.fullname" . }}-dns.{{ .Values.dns.domain }}
+4. Verify that everything is working correctly:
+   kubectl run dns-test -n {{ .Release.Namespace }} --rm -it --restart=Never --image=infoblox/dnstools --command -- dig +short @{{ include "kubebridge.fullname" . }}-dns {{ include "kubebridge.fullname" . }}-dns.{{ .Values.dns.domain }}
 
 📚 Documentation:
 --------------------------------------------
