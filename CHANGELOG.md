@@ -1,3 +1,12 @@
+## [v0.1.0] - 2025-05-04
+### New Features
+- [`60275e0b`](https://github.com/hayk96/kubebridge/commit/60275e0bad1f9c47b368c97382e51438c3ce809c) - Add retry for Redis *(commit by [@hayk96](https://github.com/hayk96))*
+
+### Bug Fixes
+- [`2511779`](https://github.com/hayk96/kubebridge/commit/f7e4e65c125546429ba2f873b9bce70b9c211a19) - **helm-charts**: Fix notes for verifying functionality *(commit by [@hayk96](https://github.com/hayk96))*
+- [`f7e4e65`](https://github.com/hayk96/kubebridge/commit/f7e4e65c125546429ba2f873b9bce70b9c211a19) - **helm-charts**: Fix service key *(commit by [@hayk96](https://github.com/hayk96))*
+
+
 ## [v0.1.0-beta.1] - 2025-04-27
 ### Chores
 - [`327109e`](https://github.com/hayk96/kubebridge/commit/327109e8c30ab7b5f9111327316f47a6d9ec0882) - **src**: PEP8 formatting *(commit by [@hayk96](https://github.com/hayk96))*
@@ -54,3 +63,4 @@
 [v0.1.0-alpha.3]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.2...v0.1.0-alpha.3
 [v0.1.0-alpha.4]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.3...v0.1.0-alpha.4
 [v0.1.0-beta.1]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.4...v0.1.0-beta.1
+[v0.1.0]: https://github.com/hayk96/kubebridge/compare/v0.1.0-beta.1...v0.1.0
