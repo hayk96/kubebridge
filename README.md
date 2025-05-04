@@ -8,11 +8,11 @@ _Discover, bridge, and resolve services in Kubernetes_
 
 ![Release](https://github.com/hayk96/kubebridge/actions/workflows/release.yml/badge.svg)
 [![Latest Release](https://img.shields.io/github/release/hayk96/kubebridge.svg?label=latest%20release)](https://github.com/hayk96/kubebridge/releases)
-![Github stars](https://badgen.net/github/stars/hayk96/kubebridge?icon=github&label=stars)
-![Github forks](https://badgen.net/github/forks/hayk96/kubebridge?icon=github&label=forks)
+![Github stars](https://img.shields.io/github/stars/hayk96/kubebridge?icon=github&label=stars)
+![Github forks](https://img.shields.io/github/forks/hayk96/kubebridge?icon=github&label=forks)
 ![Github issues](https://img.shields.io/github/issues/hayk96/kubebridge)
-[![Docker Stars](https://badgen.net/docker/stars/hayk96/kubebridge?icon=docker&label=stars)](https://hub.docker.com/r/hayk96/kubebridge/)
-[![Docker Pulls](https://badgen.net/docker/pulls/hayk96/kubebridge?icon=docker&label=pulls)](https://hub.docker.com/r/hayk96/kubebridge/)
+[![Docker Stars](https://img.shields.io/docker/stars/hayk96/kubebridge?icon=docker&label=stars)](https://hub.docker.com/r/hayk96/kubebridge/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/hayk96/kubebridge?icon=docker&label=pulls)](https://hub.docker.com/r/hayk96/kubebridge/)
 [![Docker Image Size](https://badgen.net/docker/size/hayk96/kubebridge?icon=docker&label=image%20size)](https://hub.docker.com/r/hayk96/kubebridge/)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/kubebridge)](https://artifacthub.io/packages/search?repo=kubebridge)
 
