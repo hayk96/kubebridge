@@ -11,7 +11,7 @@ This document provides a reference for the configurable values in the `values.ya
 | `global.nameOverride`     | string | `""`                | Partially override common.names.fullname template (will maintain the release name) |
 | `global.fullnameOverride` | string | `""`                | Fully override common.names.fullname template.                                     |
 | `global.image.repository` | string | `hayk96/kubebridge` | The Docker image repository.                                                       |
-| `global.image.tag`        | string | `v0.1.0-beta.1`     | The Docker image tag.                                                              |
+| `global.image.tag`        | string | `v0.1.0`     | The Docker image tag.                                                              |
 
 ### Sync parameters
 
