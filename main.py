@@ -15,9 +15,9 @@ if __name__ == "__main__":
 
     try:
         if app == "sync":
-            process_exec((http_srv, sync_core.service_sync))
+            process_exec(services=(http_srv, sync_core.service_sync))
         elif app == "dns":
-            process_exec((http_srv, dns_core.dns_srv))
+            process_exec(services=(http_srv, dns_core.dns_srv))
         else:
             logger.error(
                 f"Invalid application name '{app}'. Please check 'APP_NAME' environment variable.")
