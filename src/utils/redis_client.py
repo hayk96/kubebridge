@@ -66,12 +66,12 @@ class RedisClient:
             try:
                 message = pubsub.get_message(
                     ignore_subscribe_messages=True, timeout=int(
-                        os.environ.get("K8S_SERVICE_SYNC_INTERVAL")) + 1)
+                        os.environ.get("K8S_SERVICE_SYNC_INTERVAL", 3)) + 1)
                 RedisClient.read_msg_counter += 1
                 # Wait as the messages can be readable after subscription
                 if RedisClient.read_msg_counter == 0:
                     time.sleep(
-                        int(os.environ.get("K8S_SERVICE_SYNC_INTERVAL")) + 1)
+                        int(os.environ.get("K8S_SERVICE_SYNC_INTERVAL", 3)) + 1)
                     continue
                 if message:
                     RedisClient.msg = literal_eval(message.get("data"))
