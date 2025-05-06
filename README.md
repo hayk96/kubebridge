@@ -1,5 +1,5 @@
 <h1 align="center" style="border-bottom: none">
-    <a href="https://kubebridge.io" target="_blank"><img alt="KubeBridge" src="docs/images/logo.svg" height="180px" width="180px"></a><br>KubeBridge
+    <a href="#" target="_blank"><img alt="KubeBridge" src="docs/images/logo.svg" height="180px" width="180px"></a><br>KubeBridge
 </h1>
 
 _Discover, bridge, and resolve services in Kubernetes_
@@ -82,7 +82,7 @@ service discovery and resolution without manual configuration.
 
 ## Features
 * **Service Discovery:** Automatically registers Kubernetes services and makes them resolvable via DNS.
-* **DNS Resolution:** Services can be queried using `*.kube.bridge` domain (e.g., `my-service.kube.bridge`) without specifying namespace.
+* **DNS Resolution:** Services can be queried using a custom domain like `*.kube.bridge` (e.g., `my-service.kube.bridge`) without specifying namespace.
 * **Custom DNS Configuration:** Supports overriding or adding new Kubernetes DNS settings for advanced use cases.
 
 ## Installation
