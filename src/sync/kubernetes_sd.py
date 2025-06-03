@@ -1,5 +1,6 @@
 from kubernetes import client, config
 from src.utils.log import logger
+from src.utils import metrics
 from . import core
 import sys
 import os
@@ -53,6 +54,17 @@ def kubernetes_service_discovery() -> dict:
                 else:
                     services[svc_name]["cluster_ips"].extend(svc_cluster_ips)
                     services[svc_name]["namespaces"].extend(scv_namespace)
+
+                metrics.kubebridge_sync_services.labels(
+                    app_name="sync",
+                    namespace=scv_namespace[0],
+                    service_name=svc_name,
+                    service_type=svc_type,
+                    service_ip=svc_cluster_ips[0],
+                ).set(1)
+
+        metrics.kubebridge_sync_services_count.labels(app_name="sync").set(len(services))
+
         logger.info("Successfully fetched Kubernetes services.",
                     extra={"service_count": len(services)})
         return services

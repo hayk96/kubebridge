@@ -1,9 +1,11 @@
+from prometheus_client import make_asgi_app as metrics_app
 from fastapi import FastAPI, status, Response
 from .redis_client import RedisClient
 from .log import logger
 import uvicorn
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+app.mount("/metrics", metrics_app())
 redis = RedisClient()
 
 

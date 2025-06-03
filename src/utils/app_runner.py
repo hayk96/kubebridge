@@ -1,5 +1,6 @@
 from typing import Callable, Iterable
 from multiprocessing import Process
+import threading
 from .log import logger
 import sys
 
@@ -12,6 +13,17 @@ def process_exec(services: Iterable[Callable[[], None]]) -> None:
     """
     global processes
     processes = [Process(target=svc) for svc in services]
+    for p in processes:
+        p.start()
+    for p in processes:
+        p.join()
+
+def process_exec_thread(services: Iterable[Callable[[], None]]) -> None:
+    """
+    Starts multiple services in separate processes.
+    """
+    global processes
+    processes = [threading.Thread(target=svc) for svc in services]
     for p in processes:
         p.start()
     for p in processes:
