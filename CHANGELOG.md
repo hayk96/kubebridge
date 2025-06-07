@@ -1,3 +1,11 @@
+## [v0.2.0] - 2025-06-07
+### New Features
+- [`9f46b2c`](https://github.com/hayk96/kubebridge/commit/9f46b2cad85307dd79e90e11d20b3f761db63eaa) - Add support exporting Prometheus metrics *(PR [#1](https://github.com/hayk96/kubebridge/pull/1) by [@hayk96](https://github.com/hayk96))*
+
+### Chores
+- [`076f596`](https://github.com/hayk96/kubebridge/commit/076f59607b35d7abd5b2ccb1ae85b437994008b0) - **helm-charts**: Bump app and chart version *(commit by [@hayk96](https://github.com/hayk96))*
+
+
 ## [v0.1.0] - 2025-05-04
 ### New Features
 - [`60275e0b`](https://github.com/hayk96/kubebridge/commit/60275e0bad1f9c47b368c97382e51438c3ce809c) - Add retry for Redis *(commit by [@hayk96](https://github.com/hayk96))*
@@ -64,3 +72,4 @@
 [v0.1.0-alpha.4]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.3...v0.1.0-alpha.4
 [v0.1.0-beta.1]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.4...v0.1.0-beta.1
 [v0.1.0]: https://github.com/hayk96/kubebridge/compare/v0.1.0-beta.1...v0.1.0
+[v0.2.0]: https://github.com/hayk96/kubebridge/compare/v0.1.0...v0.2.0
