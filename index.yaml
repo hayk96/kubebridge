@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   kubebridge:
   - apiVersion: v2
+    appVersion: v0.2.0
+    created: "2025-06-07T21:56:27.469941296Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+      version: 20.11.3
+    description: A Service Discovery for Kubernetes
+    digest: 3c78e8a7dee3a9bb083f23977b08085f6e31a739e64a9fed7b546c0d66e976da
+    icon: https://raw.githubusercontent.com/hayk96/kubebridge/4ff0630fbd34d794211567cb1d07ddb0d35b8af2/docs/images/logo.svg
+    keywords:
+    - service-discovery
+    - networking
+    - kubernetes
+    - dns
+    maintainers:
+    - name: Hayk Davtyan
+      url: https://github.com/hayk96
+    name: kubebridge
+    type: application
+    urls:
+    - https://github.com/hayk96/kubebridge/releases/download/v0.2.0/kubebridge-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: v0.1.0
     created: "2025-05-04T10:31:15.536439537Z"
     dependencies:
@@ -109,4 +133,4 @@ entries:
     urls:
     - https://github.com/hayk96/kubebridge/releases/download/v0.1.0-alpha.0/kubebridge-0.1.0-alpha.0.tgz
     version: 0.1.0-alpha.0
-generated: "2025-05-04T10:31:15.529825112Z"
+generated: "2025-06-07T21:56:27.463094582Z"
