@@ -18,9 +18,16 @@ spec:
       app: {{ include "kubebridge.fullname" . }}-sync
   template:
     metadata:
-      {{- with .Values.sync.podAnnotations }}
+      {{- if or .Values.global.commonPodAnnotations .Values.sync.podAnnotations }}
       annotations:
+      {{- with .Values.global.commonPodAnnotations }}
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.sync.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- else }}
+      annotations: {}
       {{- end }}
       labels:
         {{- include "kubebridge.selectorLabels" . | nindent 8 }}

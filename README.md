@@ -217,7 +217,7 @@ data:
 ```
 
 ## Roadmap
-- [ ] Support exporting Prometheus metrics.
+- [x] Support exporting Prometheus metrics.
 - [ ] Support Kubernetes CRDs to manage custom DNS configurations.
 - [ ] Support traffic management for service discovery.
 

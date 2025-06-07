@@ -18,9 +18,16 @@ spec:
       app: {{ include "kubebridge.fullname" . }}-dns
   template:
     metadata:
-      {{- with .Values.dns.podAnnotations }}
+      {{- if or .Values.global.commonPodAnnotations .Values.dns.podAnnotations }}
       annotations:
+      {{- with .Values.global.commonPodAnnotations }}
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.dns.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- else }}
+      annotations: {}
       {{- end }}
       labels:
         {{- include "kubebridge.selectorLabels" . | nindent 8 }}

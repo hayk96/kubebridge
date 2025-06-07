@@ -8,8 +8,8 @@
 ────────────────────────────────────────────
 
 📦 Release Name:   {{ .Release.Name }}
-📍 Namespace:       {{ .Release.Namespace }}
-🔗 GitHub:          https://github.com/hayk96/kubebridge
+📍 Namespace:      {{ .Release.Namespace }}
+🔗 GitHub:         https://github.com/hayk96/kubebridge
 
 💡 Next steps:
 --------------------------------------------

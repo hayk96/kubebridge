@@ -1,7 +1,9 @@
 from src.utils.log import logger
+from src.utils import metrics
 from random import choice
 import dnslib as dns
 import socket
+import time
 import json
 import sys
 import os
@@ -48,6 +50,7 @@ class DNSServer:
         self.records = load_extra_dns_config()
 
     def create_response(self, request):
+        start_time = time.perf_counter()
         reply = dns.DNSRecord(
             dns.DNSHeader(
                 id=request.header.id,
@@ -76,8 +79,9 @@ class DNSServer:
                     rdata=dns.CNAME(
                         self.records['CNAME'][qname]),
                     ttl=60))
-
-        return reply
+        end_time = time.perf_counter()
+        exec_time = end_time - start_time
+        return reply, exec_time
 
     def serve(self):
         try:
@@ -102,7 +106,7 @@ class DNSServer:
                 try:
                     data, addr = udp_socket.recvfrom(1024)
                     request = dns.DNSRecord.parse(data)
-                    reply = self.create_response(request)
+                    reply, exec_time = self.create_response(request)
                     udp_socket.sendto(reply.pack(), addr)
 
                 except Exception as e:
@@ -111,8 +115,21 @@ class DNSServer:
                     logger.debug("Responding to DNS query", extra={
                         "source_ip": addr[0],
                         "domain": request.q.qname,
-                        "record_type": dns.QTYPE[request.q.qtype]
+                        "record_type": dns.QTYPE[request.q.qtype],
+                        "lookup_time_ms": (exec_time * 1000).__round__(3)
                     })
+
+                    metrics.kubebridge_dns_requests.labels(
+                        app_name="dns",
+                        record_type=dns.QTYPE[request.q.qtype],
+                        record_name=request.q.qname,
+                        record_ip=reply.short()).inc()
+
+                    metrics.kubebridge_dns_lookup_time_seconds.labels(
+                        app_name="dns",
+                        record_type=dns.QTYPE[request.q.qtype],
+                        record_name=request.q.qname,
+                        record_ip=reply.short()).set(exec_time)
 
         except KeyboardInterrupt:
             logger.error("Server shutting down...")

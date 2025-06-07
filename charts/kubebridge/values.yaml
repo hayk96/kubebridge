@@ -5,6 +5,9 @@ global:
   logLevel: info
   nameOverride: ""
   fullnameOverride: ""
+  commonPodAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
 
   image:
     repository: hayk96/kubebridge
