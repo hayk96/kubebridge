@@ -5,13 +5,14 @@ This document provides a reference for the configurable values in the `values.ya
 ## Parameters
 ### Global parameters
 
-| Name                      | Type   | Value               | Description                                                                        |
-|---------------------------|--------|---------------------|------------------------------------------------------------------------------------|
-| `global.logLevel`         | string | `info`              | The log level for all KubeBridge components.                                       |
-| `global.nameOverride`     | string | `""`                | Partially override common.names.fullname template (will maintain the release name) |
-| `global.fullnameOverride` | string | `""`                | Fully override common.names.fullname template.                                     |
-| `global.image.repository` | string | `hayk96/kubebridge` | The Docker image repository.                                                       |
-| `global.image.tag`        | string | `v0.1.0`     | The Docker image tag.                                                              |
+| Name                          | Type   | Value               | Description                                                                        |
+|-------------------------------|--------|---------------------|------------------------------------------------------------------------------------|
+| `global.logLevel`             | string | `info`              | The log level for all KubeBridge components.                                       |
+| `global.nameOverride`         | string | `""`                | Partially override common.names.fullname template (will maintain the release name) |
+| `global.fullnameOverride`     | string | `""`                | Fully override common.names.fullname template.                                     |
+| `global.commonPodAnnotations` | object | See `values.yaml`   | Add annotations to pods of Sync and DNS components                                 |
+| `global.image.repository`     | string | `hayk96/kubebridge` | The Docker image repository.                                                       |
+| `global.image.tag`            | string | `v0.1.0`            | The Docker image tag.                                                              |
 
 ### Sync parameters
 
