@@ -188,13 +188,12 @@ data:
         reload
         loadbalance
     }
-    kube.bridge: |  
-      kube.bridge:53 {  
-        errors  
-        cache 30  
-        forward . 10.96.244.221
-        reload  
-      }
+    kube.bridge:53 {
+      errors  
+      cache 30  
+      forward . 10.96.244.221
+      reload  
+    }
 ```
 
 ### KubeDNS configuration
