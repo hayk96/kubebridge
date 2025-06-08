@@ -12,7 +12,7 @@ This document provides a reference for the configurable values in the `values.ya
 | `global.fullnameOverride`     | string | `""`                | Fully override common.names.fullname template.                                     |
 | `global.commonPodAnnotations` | object | See `values.yaml`   | Add annotations to pods of Sync and DNS components                                 |
 | `global.image.repository`     | string | `hayk96/kubebridge` | The Docker image repository.                                                       |
-| `global.image.tag`            | string | `v0.2.0`            | The Docker image tag.                                                              |
+| `global.image.tag`            | string | `v0.2.1`            | The Docker image tag.                                                              |
 
 ### Sync parameters
 
