@@ -119,17 +119,11 @@ class DNSServer:
                         "lookup_time_ms": (exec_time * 1000).__round__(3)
                     })
 
-                    metrics.kubebridge_dns_requests.labels(
-                        app_name="dns",
-                        record_type=dns.QTYPE[request.q.qtype],
-                        record_name=request.q.qname,
-                        record_ip=reply.short()).inc()
-
                     metrics.kubebridge_dns_lookup_time_seconds.labels(
                         app_name="dns",
                         record_type=dns.QTYPE[request.q.qtype],
                         record_name=request.q.qname,
-                        record_ip=reply.short()).set(exec_time)
+                        record_ip=reply.short()).observe(exec_time)
 
         except KeyboardInterrupt:
             logger.error("Server shutting down...")
