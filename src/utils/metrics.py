@@ -1,4 +1,4 @@
-from prometheus_client import Gauge, Counter, disable_created_metrics
+from prometheus_client import Gauge, Counter, Summary, disable_created_metrics
 
 disable_created_metrics()
 
@@ -14,6 +14,6 @@ kubebridge_dns_requests = Counter("kubebridge_dns_requests",
                                   "Total count of DNS requests processed for domain records",
                                   labelnames=["app_name", "record_type", "record_name", "record_ip"])
 
-kubebridge_dns_lookup_time_seconds = Gauge("kubebridge_dns_lookup_time_seconds",
-                                           "Time taken to resolve DNS queries in seconds",
-                                           labelnames=["app_name", "record_type", "record_name", "record_ip"])
+kubebridge_dns_lookup_time_seconds = Summary("kubebridge_dns_lookup_time_seconds",
+                                             "Time taken to resolve DNS queries in seconds",
+                                             labelnames=["app_name", "record_type", "record_name", "record_ip"])

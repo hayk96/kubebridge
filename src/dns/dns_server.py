@@ -129,7 +129,7 @@ class DNSServer:
                         app_name="dns",
                         record_type=dns.QTYPE[request.q.qtype],
                         record_name=request.q.qname,
-                        record_ip=reply.short()).set(exec_time)
+                        record_ip=reply.short()).observe(exec_time)
 
         except KeyboardInterrupt:
             logger.error("Server shutting down...")
