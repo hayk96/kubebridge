@@ -1,3 +1,9 @@
+## [v0.2.1] - 2025-06-08
+### Bug Fixes
+- [`d726f81`](https://github.com/hayk96/kubebridge/commit/d726f81a599206265a9a147dcacf3f4fa21dd9ef) - **prometheus-metrics**: Fix metric type of DNS request latency *(PR [#4](https://github.com/hayk96/kubebridge/pull/4) by [@hayk96](https://github.com/hayk96))*
+  - :arrow_lower_right: *fixes issue [#3](https://github.com/hayk96/kubebridge/issues/3) opened by [@hayk96](https://github.com/hayk96)*
+
+
 ## [v0.2.0] - 2025-06-07
 ### New Features
 - [`9f46b2c`](https://github.com/hayk96/kubebridge/commit/9f46b2cad85307dd79e90e11d20b3f761db63eaa) - Add support exporting Prometheus metrics *(PR [#1](https://github.com/hayk96/kubebridge/pull/1) by [@hayk96](https://github.com/hayk96))*
@@ -73,3 +79,4 @@
 [v0.1.0-beta.1]: https://github.com/hayk96/kubebridge/compare/v0.1.0-alpha.4...v0.1.0-beta.1
 [v0.1.0]: https://github.com/hayk96/kubebridge/compare/v0.1.0-beta.1...v0.1.0
 [v0.2.0]: https://github.com/hayk96/kubebridge/compare/v0.1.0...v0.2.0
+[v0.2.1]: https://github.com/hayk96/kubebridge/compare/v0.2.0...v0.2.1
