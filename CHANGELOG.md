@@ -1,3 +1,9 @@
+## [v0.2.2] - 2026-01-24
+### Bug Fixes
+- [`48b1321`](https://github.com/hayk96/kubebridge/commit/48b1321e5ede67d9886d799997a58c32fb95f2e2) - **helm-charts**: Fix Bitnami Helm chart repository and Docker registry *(PR [#5](https://github.com/hayk96/kubebridge/pull/5) by [@hayk96](https://github.com/hayk96))*
+- [`3446c9d`](https://github.com/hayk96/kubebridge/commit/3446c9d7e73e207bd7587d9520b6c46c022c48fd) - Fix Docker base image and dependency Redis repository *(commit by [@hayk96](https://github.com/hayk96))*
+
+
 ## [v0.2.1] - 2025-06-08
 ### Bug Fixes
 - [`d726f81`](https://github.com/hayk96/kubebridge/commit/d726f81a599206265a9a147dcacf3f4fa21dd9ef) - **prometheus-metrics**: Fix metric type of DNS request latency *(PR [#4](https://github.com/hayk96/kubebridge/pull/4) by [@hayk96](https://github.com/hayk96))*
@@ -80,3 +86,4 @@
 [v0.1.0]: https://github.com/hayk96/kubebridge/compare/v0.1.0-beta.1...v0.1.0
 [v0.2.0]: https://github.com/hayk96/kubebridge/compare/v0.1.0...v0.2.0
 [v0.2.1]: https://github.com/hayk96/kubebridge/compare/v0.2.0...v0.2.1
+[v0.2.2]: https://github.com/hayk96/kubebridge/compare/v0.2.1...v0.2.2
