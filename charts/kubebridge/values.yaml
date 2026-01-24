@@ -214,7 +214,7 @@ dns:
 redis:
   enabled: true
   image:
-    registry: bitnamilegacy/redis
+    repository: bitnamilegacy/redis
   master:
     podLabels:
       app: redis
